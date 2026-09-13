@@ -1,239 +1,36 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radar de Ofertas - Os Melhores Cupons e Descontos</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome para Ícones -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .active-tab {
-            background-color: #4f46e5 !important;
-            color: #ffffff !important;
-        }
-    </style>
-</head>
-<body class="bg-gray-100 text-gray-800 font-sans antialiased">
+<div class="grid">
+  <div class="card">
+    <h3>Produto em Destaque 1</h3>
+    <a href="https://amzn.to/4h0hJoZ" class="btn" target="_blank">Ver na Amazon</a>
+  </div>
+  
+  <div class="card">
+    <h3>Produto em Destaque 2</h3>
+    <a href="https://amzn.to/4gOVAd3" class="btn" target="_blank">Ver na Amazon</a>
+  </div>
 
-    <!-- HEADER / NAVEGAÇÃO -->
-    <header class="bg-indigo-600 text-white sticky top-0 z-50 shadow-md">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
-            <div class="flex items-center gap-2 text-2xl font-bold tracking-wide">
-                <i class="fa-solid fa-tag text-yellow-400"></i>
-                <span>Radar<span class="text-yellow-400">Ofertas</span></span>
-            </div>
-            
-            <!-- Barra de Busca -->
-            <div class="relative w-full md:w-1/2">
-                <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="Buscar produto ou categoria (ex: Fone, Smartwatch, Cozinha)..." 
-                       class="w-full pl-10 pr-4 py-2 rounded-full text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-white shadow-inner">
-                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400"></i>
-            </div>
+  <div class="card">
+    <h3>Produto em Destaque 3</h3>
+    <a href="https://amzn.to/4gZgTY5" class="btn" target="_blank">Ver na Amazon</a>
+  </div>
 
-            <!-- Redes Sociais / Grupos VIP -->
-            <div class="flex items-center gap-2 text-xs font-semibold">
-                <a href="#" target="_blank" class="bg-green-500 hover:bg-green-600 px-3 py-1.5 rounded-full flex items-center gap-1 shadow transition">
-                    <i class="fa-brands fa-whatsapp text-base"></i> Grupo VIP
-                </a>
-                <a href="#" target="_blank" class="bg-blue-500 hover:bg-blue-600 px-3 py-1.5 rounded-full flex items-center gap-1 shadow transition">
-                    <i class="fa-brands fa-telegram text-base"></i> Telegram
-                </a>
-            </div>
-        </div>
-    </header>
+  <div class="card">
+    <h3>Produto em Destaque 4</h3>
+    <a href="https://amzn.to/4xU7c4E" class="btn" target="_blank">Ver na Amazon</a>
+  </div>
 
-    <!-- BANNER PRINCIPAL -->
-    <section class="bg-gradient-to-r from-indigo-700 to-purple-700 text-white py-8 px-4 text-center shadow-inner">
-        <h1 class="text-2xl md:text-4xl font-extrabold mb-2">Economize em Suas Compras Online</h1>
-        <p class="text-sm md:text-base text-indigo-100 max-w-2xl mx-auto">As melhores promoções e achadinhos testados da Shopee com cupons e frete grátis atualizados diariamente!</p>
-    </section>
+  <div class="card">
+    <h3>Produto em Destaque 5</h3>
+    <a href="https://amzn.to/4h2en3v" class="btn" target="_blank">Ver na Amazon</a>
+  </div>
 
-    <!-- CATEGORIAS -->
-    <div class="max-w-7xl mx-auto px-4 py-4">
-        <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-none text-xs md:text-sm font-medium">
-            <button onclick="filterCategory('all', this)" class="category-btn active-tab bg-white px-4 py-2 rounded-full shadow-sm hover:bg-indigo-50 border whitespace-nowrap transition">Todas as Ofertas</button>
-            <button onclick="filterCategory('eletronicos', this)" class="category-btn bg-white px-4 py-2 rounded-full shadow-sm hover:bg-indigo-50 border whitespace-nowrap transition">Eletrônicos</button>
-            <button onclick="filterCategory('smartphones', this)" class="category-btn bg-white px-4 py-2 rounded-full shadow-sm hover:bg-indigo-50 border whitespace-nowrap transition">Smartphones & Acessórios</button>
-            <button onclick="filterCategory('casa', this)" class="category-btn bg-white px-4 py-2 rounded-full shadow-sm hover:bg-indigo-50 border whitespace-nowrap transition">Casa e Cozinha</button>
-            <button onclick="filterCategory('moda', this)" class="category-btn bg-white px-4 py-2 rounded-full shadow-sm hover:bg-indigo-50 border whitespace-nowrap transition">Moda e Acessórios</button>
-        </div>
-    </div>
+  <div class="card">
+    <h3>Produto em Destaque 6</h3>
+    <a href="https://amzn.to/4iVijFG" class="btn" target="_blank">Ver na Amazon</a>
+  </div>
 
-    <!-- CONTEÚDO PRINCIPAL (GRID DE OFERTAS) -->
-    <main class="max-w-7xl mx-auto px-4 pb-12">
-        <h2 class="text-xl font-bold mb-4 text-gray-800 border-l-4 border-indigo-600 pl-2">Achadinhos e Promoções em Destaque</h2>
-
-        <div id="dealsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            <!-- OFERTA 1 (Seu link: 1ALBC9RFk) -->
-            <div class="deal-card bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden border flex flex-col" data-category="smartphones">
-                <div class="relative h-48 bg-gray-50 flex items-center justify-center p-2">
-                    <span class="absolute top-2 left-2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded">OFERTA SHOPEE</span>
-                    <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=80" alt="Fone Bluetooth" class="h-full object-contain">
-                </div>
-                <div class="p-4 flex-1 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xs font-bold text-orange-500 uppercase tracking-wider">Shopee</span>
-                        <h3 class="font-bold text-gray-800 text-sm mt-1 line-clamp-2">Fone de Ouvido Bluetooth Sem Fio TWS HD com Case Recarregável</h3>
-                        <div class="mt-2 flex items-baseline gap-2">
-                            <span class="text-lg font-bold text-orange-600">R$ 29,90</span>
-                            <span class="text-xs text-gray-400 line-through">R$ 79,90</span>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t">
-                        <a href="https://s.shopee.com.br/1ALBC9RFk" target="_blank" rel="noopener noreferrer" class="block w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-2.5 rounded-lg text-center transition shadow">Ir para a Promoção na Shopee <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- OFERTA 2 (Seu link: 5fohvbWTOz) -->
-            <div class="deal-card bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden border flex flex-col" data-category="smartphones">
-                <div class="relative h-48 bg-gray-50 flex items-center justify-center p-2">
-                    <span class="absolute top-2 left-2 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded">CUPOM APLICADO</span>
-                    <img src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500&auto=format&fit=crop&q=80" alt="Smartwatch" class="h-full object-contain">
-                </div>
-                <div class="p-4 flex-1 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xs font-bold text-orange-500 uppercase tracking-wider">Shopee</span>
-                        <h3 class="font-bold text-gray-800 text-sm mt-1 line-clamp-2">Smartwatch Inteligente Fitness Monitor Cardíaco e Passos</h3>
-                        <div class="mt-2 flex items-baseline gap-2">
-                            <span class="text-lg font-bold text-orange-600">R$ 49,90</span>
-                            <span class="text-xs text-gray-400 line-through">R$ 119,00</span>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t">
-                        <a href="https://s.shopee.com.br/5fohvbWTOz" target="_blank" rel="noopener noreferrer" class="block w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-2.5 rounded-lg text-center transition shadow">Ir para a Promoção na Shopee <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- OFERTA 3 (Seu link: 8AW2uBs9p6) -->
-            <div class="deal-card bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden border flex flex-col" data-category="casa">
-                <div class="relative h-48 bg-gray-50 flex items-center justify-center p-2">
-                    <span class="absolute top-2 left-2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded">MAIS VENDIDO</span>
-                    <img src="https://images.unsplash.com/photo-1585515320310-259814833e62?w=500&auto=format&fit=crop&q=80" alt="Mini Processador" class="h-full object-contain">
-                </div>
-                <div class="p-4 flex-1 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xs font-bold text-orange-500 uppercase tracking-wider">Shopee</span>
-                        <h3 class="font-bold text-gray-800 text-sm mt-1 line-clamp-2">Mini Processador de Alimentos Elétrico USB Portátil Cozinha</h3>
-                        <div class="mt-2 flex items-baseline gap-2">
-                            <span class="text-lg font-bold text-orange-600">R$ 24,90</span>
-                            <span class="text-xs text-gray-400 line-through">R$ 55,00</span>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t">
-                        <a href="https://s.shopee.com.br/8AW2uBs9p6" target="_blank" rel="noopener noreferrer" class="block w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-2.5 rounded-lg text-center transition shadow">Ir para a Promoção na Shopee <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- OFERTA 4 (Seu link: 4Azu8ppiXw) -->
-            <div class="deal-card bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden border flex flex-col" data-category="eletronicos">
-                <div class="relative h-48 bg-gray-50 flex items-center justify-center p-2">
-                    <span class="absolute top-2 left-2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded">OFERTA</span>
-                    <img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&auto=format&fit=crop&q=80" alt="Caixa de Som" class="h-full object-contain">
-                </div>
-                <div class="p-4 flex-1 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xs font-bold text-orange-500 uppercase tracking-wider">Shopee</span>
-                        <h3 class="font-bold text-gray-800 text-sm mt-1 line-clamp-2">Caixa de Som Bluetooth Portátil Potente com LED RGB</h3>
-                        <div class="mt-2 flex items-baseline gap-2">
-                            <span class="text-lg font-bold text-orange-600">R$ 34,90</span>
-                            <span class="text-xs text-gray-400 line-through">R$ 79,00</span>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t">
-                        <a href="https://s.shopee.com.br/4Azu8ppiXw" target="_blank" rel="noopener noreferrer" class="block w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-2.5 rounded-lg text-center transition shadow">Ir para a Promoção na Shopee <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- OFERTA 5 (Seu link: 20vPYqby1x) -->
-            <div class="deal-card bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden border flex flex-col" data-category="moda">
-                <div class="relative h-48 bg-gray-50 flex items-center justify-center p-2">
-                    <span class="absolute top-2 left-2 bg-purple-500 text-white text-[10px] font-bold px-2 py-0.5 rounded">FRETE GRÁTIS</span>
-                    <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&auto=format&fit=crop&q=80" alt="Mochila Executiva" class="h-full object-contain">
-                </div>
-                <div class="p-4 flex-1 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xs font-bold text-orange-500 uppercase tracking-wider">Shopee</span>
-                        <h3 class="font-bold text-gray-800 text-sm mt-1 line-clamp-2">Mochila Executiva Impermeável com Saída USB para Notebook</h3>
-                        <div class="mt-2 flex items-baseline gap-2">
-                            <span class="text-lg font-bold text-orange-600">R$ 59,90</span>
-                            <span class="text-xs text-gray-400 line-through">R$ 120,00</span>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t">
-                        <a href="https://s.shopee.com.br/20vPYqby1x" target="_blank" rel="noopener noreferrer" class="block w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-2.5 rounded-lg text-center transition shadow">Ir para a Promoção na Shopee <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- OFERTA 6 (Seu link: 3g3dXu0xhm) -->
-            <div class="deal-card bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden border flex flex-col" data-category="casa">
-                <div class="relative h-48 bg-gray-50 flex items-center justify-center p-2">
-                    <span class="absolute top-2 left-2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded">OFERTA</span>
-                    <img src="https://images.unsplash.com/photo-1616423642735-e11559dd772b?w=500&auto=format&fit=crop&q=80" alt="Ring Light" class="h-full object-contain">
-                </div>
-                <div class="p-4 flex-1 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xs font-bold text-orange-500 uppercase tracking-wider">Shopee</span>
-                        <h3 class="font-bold text-gray-800 text-sm mt-1 line-clamp-2">Ring Light LED com Tripé Regulável e Suporte para Celular</h3>
-                        <div class="mt-2 flex items-baseline gap-2">
-                            <span class="text-lg font-bold text-orange-600">R$ 32,90</span>
-                            <span class="text-xs text-gray-400 line-through">R$ 69,90</span>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t">
-                        <a href="https://s.shopee.com.br/3g3dXu0xhm" target="_blank" rel="noopener noreferrer" class="block w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-2.5 rounded-lg text-center transition shadow">Ir para a Promoção na Shopee <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <!-- RODAPÉ -->
-    <footer class="bg-slate-900 text-gray-400 text-center py-6 border-t border-slate-800 text-xs">
-        <p>&copy; 2026 RadarOfertas. Todos os direitos reservados. Links de afiliados podem gerar comissão.</p>
-    </footer>
-
-    <!-- JAVASCRIPT DE FILTROS E BUSCA -->
-    <script>
-        function filterCategory(category, buttonElement) {
-            const cards = document.querySelectorAll('.deal-card');
-            const buttons = document.querySelectorAll('.category-btn');
-
-            buttons.forEach(btn => btn.classList.remove('active-tab'));
-            buttonElement.classList.add('active-tab');
-
-            cards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        function filterProducts() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.querySelectorAll('.deal-card');
-
-            cards.forEach(card => {
-                const title = card.querySelector('h3').innerText.toLowerCase();
-                const store = card.querySelector('span').innerText.toLowerCase();
-                
-                if (title.includes(input) || store.includes(input)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-    </script>
-</body>
-</html>
+  <div class="card">
+    <h3>Produto em Destaque 7</h3>
+    <a href="https://amzn.to/4r5RUqF" class="btn" target="_blank">Ver na Amazon</a>
+  </div>
+</div>
