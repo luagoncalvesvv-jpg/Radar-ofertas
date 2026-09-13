@@ -1,36 +1,97 @@
-<div class="grid">
-  <div class="card">
-    <h3>Produto em Destaque 1</h3>
-    <a href="https://amzn.to/4h0hJoZ" class="btn" target="_blank">Ver na Amazon</a>
-  </div>
-  
-  <div class="card">
-    <h3>Produto em Destaque 2</h3>
-    <a href="https://amzn.to/4gOVAd3" class="btn" target="_blank">Ver na Amazon</a>
-  </div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radar de Ofertas & Cupons</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; color: #333; }
+    header { text-align: center; margin-bottom: 30px; }
+    h1 { color: #131921; margin-bottom: 5px; }
+    p.subtitle { color: #555; font-size: 14px; }
+    .nav-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
+    .nav-tabs a { background: #ff9900; color: #131921; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .nav-tabs a:hover { background: #e88b00; }
+    section { margin-bottom: 40px; }
+    h2 { border-bottom: 2px solid #ff9900; padding-bottom: 8px; color: #131921; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+    .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
+    .card h3 { font-size: 16px; margin-top: 0; color: #333; }
+    .btn { display: inline-block; padding: 12px 15px; background: #ff9900; color: #131921; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 15px; transition: background 0.2s; }
+    .btn:hover { background: #e88b00; }
+    .coupon-card { border: 2px dashed #ff9900; background: #fffdf5; }
+    .coupon-code { background: #eee; padding: 6px 12px; font-family: monospace; font-size: 18px; font-weight: bold; border-radius: 4px; display: inline-block; margin: 10px 0; color: #c45500; }
+    footer { text-align: center; margin-top: 50px; font-size: 12px; color: #777; }
+  </style>
+</head>
+<body>
 
-  <div class="card">
-    <h3>Produto em Destaque 3</h3>
-    <a href="https://amzn.to/4gZgTY5" class="btn" target="_blank">Ver na Amazon</a>
-  </div>
+  <header>
+    <h1>Radar de Ofertas & Cupons</h1>
+    <p class="subtitle">As melhores promoções e cupons da internet em um só lugar!</p>
+    <div class="nav-tabs">
+      <a href="#produtos">📦 Produtos</a>
+      <a href="#cupons">🎟️ Cupons</a>
+    </div>
+  </header>
 
-  <div class="card">
-    <h3>Produto em Destaque 4</h3>
-    <a href="https://amzn.to/4xU7c4E" class="btn" target="_blank">Ver na Amazon</a>
-  </div>
+  <!-- SEÇÃO DE PRODUTOS -->
+  <section id="produtos">
+    <h2>Produtos em Destaque</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Achadinho Amazon 1</h3>
+        <a href="https://amzn.to/4h0hJoZ" class="btn" target="_blank">Ver na Amazon</a>
+      </div>
+      
+      <div class="card">
+        <h3>Achadinho Amazon 2</h3>
+        <a href="https://amzn.to/4gOVAd3" class="btn" target="_blank">Ver na Amazon</a>
+      </div>
 
-  <div class="card">
-    <h3>Produto em Destaque 5</h3>
-    <a href="https://amzn.to/4h2en3v" class="btn" target="_blank">Ver na Amazon</a>
-  </div>
+      <div class="card">
+        <h3>Achadinho Amazon 3</h3>
+        <a href="https://amzn.to/4gZgTY5" class="btn" target="_blank">Ver na Amazon</a>
+      </div>
 
-  <div class="card">
-    <h3>Produto em Destaque 6</h3>
-    <a href="https://amzn.to/4iVijFG" class="btn" target="_blank">Ver na Amazon</a>
-  </div>
+      <div class="card">
+        <h3>Achadinho Amazon 4</h3>
+        <a href="https://amzn.to/4xU7c4E" class="btn" target="_blank">Ver na Amazon</a>
+      </div>
 
-  <div class="card">
-    <h3>Produto em Destaque 7</h3>
-    <a href="https://amzn.to/4r5RUqF" class="btn" target="_blank">Ver na Amazon</a>
-  </div>
-</div>
+      <div class="card">
+        <h3>Achadinho Amazon 5</h3>
+        <a href="https://amzn.to/4h2en3v" class="btn" target="_blank">Ver na Amazon</a>
+      </div>
+
+      <div class="card">
+        <h3>Achadinho Amazon 6</h3>
+        <a href="https://amzn.to/4iVijFG" class="btn" target="_blank">Ver na Amazon</a>
+      </div>
+
+      <div class="card">
+        <h3>Achadinho Amazon 7</h3>
+        <a href="https://amzn.to/4r5RUqF" class="btn" target="_blank">Ver na Amazon</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO DE CUPONS -->
+  <section id="cupons">
+    <h2>Cupons de Desconto</h2>
+    <div class="grid">
+      <div class="card coupon-card">
+        <h3>Cupom Especial</h3>
+        <p>Copie o código e aproveite:</p>
+        <div class="coupon-code">DESCONTO10</div>
+        <a href="https://www.amazon.com.br" class="btn" target="_blank" style="background: #febd69;">Resgatar na Amazon</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Radar de Ofertas. Todos os direitos reservados.</p>
+  </footer>
+
+</body>
+</html>
