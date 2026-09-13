@@ -4,183 +4,221 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Radar de Ofertas - Os Melhores Cupons e Descontos</title>
-    <!-- Tailwind CSS para design moderno e responsivo -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para Ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .active-tab {
+            background-color: #4f46e5 !important;
+            color: #ffffff !important;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans">
+<body class="bg-gray-100 text-gray-800 font-sans antialiased">
 
     <!-- HEADER / NAVEGAÇÃO -->
     <header class="bg-indigo-600 text-white sticky top-0 z-50 shadow-md">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
             <div class="flex items-center gap-2 text-2xl font-bold tracking-wide">
-                <i class="fa-solid fa-[#000] fa-tag text-yellow-400"></i>
+                <i class="fa-solid fa-tag text-yellow-400"></i>
                 <span>Radar<span class="text-yellow-400">Ofertas</span></span>
             </div>
             
-            <!-- Barra de Pesquisa -->
+            <!-- Barra de Busca -->
             <div class="relative w-full md:w-1/2">
-                <input type="text" id="searchInput" onkeyup="filterDeals()" placeholder="Buscar cupom, produto ou loja (ex: Amazon, Notebook)..." 
-                    class="w-full py-2 px-4 pr-10 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-400 shadow-inner">
-                <i class="fa-solid fa-magnifying-glass absolute right-3 top-3 text-gray-400"></i>
+                <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="Buscar cupom, produto ou loja (ex: Amazon, Fone)..." 
+                       class="w-full pl-10 pr-4 py-2 rounded-full text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-white shadow-inner">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400"></i>
             </div>
 
-            <!-- Redes / Info -->
-            <div class="flex gap-4 text-sm font-semibold">
-                <a href="#" class="hover:text-yellow-300 transition"><i class="fa-brands fa-whatsapp text-lg"></i> Grupo VIP</a>
-                <a href="#" class="hover:text-yellow-300 transition"><i class="fa-brands fa-telegram text-lg"></i> Telegram</a>
+            <!-- Redes Sociais / Grupos VIP -->
+            <div class="flex items-center gap-2 text-xs font-semibold">
+                <a href="#" target="_blank" class="bg-green-500 hover:bg-green-600 px-3 py-1.5 rounded-full flex items-center gap-1 shadow transition">
+                    <i class="fa-brands fa-whatsapp text-base"></i> Grupo VIP
+                </a>
+                <a href="#" target="_blank" class="bg-blue-500 hover:bg-blue-600 px-3 py-1.5 rounded-full flex items-center gap-1 shadow transition">
+                    <i class="fa-brands fa-telegram text-base"></i> Telegram
+                </a>
             </div>
         </div>
     </header>
 
-    <!-- BANNER DE DESTAQUE -->
-    <section class="bg-gradient-to-r from-indigo-700 to-purple-800 text-white py-8 px-4 text-center">
-        <h1 class="text-3xl md:text-4xl font-extrabold mb-2">Economize em Suas Compras Online</h1>
-        <p class="text-indigo-200 max-w-2xl mx-auto">Os melhores cupons testados e promoções atualizadas das maiores lojas do Brasil.</p>
+    <!-- BANNER PRINCIPAL -->
+    <section class="bg-gradient-to-r from-indigo-700 to-purple-700 text-white py-8 px-4 text-center shadow-inner">
+        <h1 class="text-2xl md:text-4xl font-extrabold mb-2">Economize em Suas Compras Online</h1>
+        <p class="text-sm md:text-base text-indigo-100 max-w-2xl mx-auto">Os melhores cupons testados e promoções atualizadas diária e manualmente das maiores lojas do Brasil.</p>
     </section>
 
     <!-- CATEGORIAS -->
-    <div class="max-w-7xl mx-auto px-4 py-6">
-        <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-none text-sm font-medium">
-            <button class="bg-indigo-600 text-white px-4 py-2 rounded-full whitespace-nowrap shadow">Todas as Ofertas</button>
-            <button class="bg-white text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-full whitespace-nowrap shadow">Eletrônicos</button>
-            <button class="bg-white text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-full whitespace-nowrap shadow">Moda e Roupas</button>
-            <button class="bg-white text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-full whitespace-nowrap shadow">Casa e Cozinha</button>
-            <button class="bg-white text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-full whitespace-nowrap shadow">Smartphones</button>
+    <div class="max-w-7xl mx-auto px-4 py-4">
+        <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-none text-xs md:text-sm font-medium">
+            <button onclick="filterCategory('all', this)" class="category-btn active-tab bg-white px-4 py-2 rounded-full shadow-sm hover:bg-indigo-50 border whitespace-nowrap transition">Todas as Ofertas</button>
+            <button onclick="filterCategory('eletronicos', this)" class="category-btn bg-white px-4 py-2 rounded-full shadow-sm hover:bg-indigo-50 border whitespace-nowrap transition">Eletrônicos</button>
+            <button onclick="filterCategory('smartphones', this)" class="category-btn bg-white px-4 py-2 rounded-full shadow-sm hover:bg-indigo-50 border whitespace-nowrap transition">Smartphones</button>
+            <button onclick="filterCategory('moda', this)" class="category-btn bg-white px-4 py-2 rounded-full shadow-sm hover:bg-indigo-50 border whitespace-nowrap transition">Moda e Roupas</button>
+            <button onclick="filterCategory('casa', this)" class="category-btn bg-white px-4 py-2 rounded-full shadow-sm hover:bg-indigo-50 border whitespace-nowrap transition">Casa e Cozinha</button>
         </div>
     </div>
 
-    <!-- GRID DE PROMOÇÕES E CUPONS -->
+    <!-- CONTEÚDO PRINCIPAL (GRID DE OFERTAS) -->
     <main class="max-w-7xl mx-auto px-4 pb-12">
-        <h2 class="text-2xl font-bold mb-6 text-gray-800 border-l-4 border-indigo-600 pl-3">Promoções e Cupons em Destaque</h2>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="dealsGrid">
-            
-            <!-- CARD 1: Cupom Amazon -->
-            <div class="deal-card bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition flex flex-col justify-between border border-gray-100">
-                <div>
-                    <div class="relative bg-gray-50 p-4 text-center">
-                        <span class="absolute top-2 left-2 bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded">CUPOM</span>
-                        <img src="https://via.placeholder.com/150x100?text=Amazon" alt="Amazon" class="h-20 mx-auto object-contain">
-                    </div>
-                    <div class="p-4">
-                        <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Amazon</span>
-                        <h3 class="font-bold text-gray-800 text-lg line-clamp-2 mt-1">R$ 50 OFF em Livros e Eletrônicos Selecionados</h3>
-                        <p class="text-xs text-gray-500 mt-2"><i class="fa-regular fa-clock"></i> Válido até o fim do mês</p>
-                    </div>
+        <h2 class="text-xl font-bold mb-4 text-gray-800 border-l-4 border-indigo-600 pl-2">Promoções e Cupons em Destaque</h2>
+
+        <div id="dealsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- CARD 1: AMAZON (ELETRONICOS) -->
+            <div class="deal-card bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden border flex flex-col" data-category="eletronicos">
+                <div class="relative h-44 bg-gray-50 flex items-center justify-center p-2">
+                    <span class="absolute top-2 left-2 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded">CUPOM</span>
+                    <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500&auto=format&fit=crop&q=80" alt="Câmera Polaroid" class="h-full object-contain">
                 </div>
-                <div class="p-4 pt-0">
-                    <button onclick="copyAndRedirect('AMAZON50OFF', 'https://www.amazon.com.br')" 
-                        class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-lg flex justify-between items-center transition">
-                        <span>Pegar Cupom</span>
-                        <span class="bg-emerald-800 text-xs px-2 py-1 rounded border border-emerald-400 tracking-wider">AMAZON50OFF</span>
-                    </button>
+                <div class="p-4 flex-1 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Amazon</span>
+                        <h3 class="font-bold text-gray-800 text-sm mt-1 line-clamp-2">R$ 50 OFF em Câmeras e Eletrônicos Selecionados</h3>
+                        <p class="text-xs text-gray-500 mt-1"><i class="fa-regular fa-clock"></i> Validação diária</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="bg-dashed border border-emerald-500 text-emerald-700 font-mono text-xs font-bold px-2 py-1 rounded bg-emerald-50 w-full text-center">AMAZON50OFF</span>
+                            <a href="https://www.amazon.com.br" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg text-center whitespace-nowrap transition">Pegar</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- CARD 2: Promoção Shopee -->
-            <div class="deal-card bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition flex flex-col justify-between border border-gray-100">
-                <div>
-                    <div class="relative bg-gray-50 p-4 text-center">
-                        <span class="absolute top-2 left-2 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded">OFERTA</span>
-                        <img src="https://via.placeholder.com/150x100?text=Shopee" alt="Shopee" class="h-20 mx-auto object-contain">
-                    </div>
-                    <div class="p-4">
-                        <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Shopee</span>
-                        <h3 class="font-bold text-gray-800 text-lg line-clamp-2 mt-1">Fone de Ouvido Bluetooth Sem Fio TWS</h3>
+            <!-- CARD 2: SHOPEE (SMARTPHONES / ACESSÓRIOS) -->
+            <div class="deal-card bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden border flex flex-col" data-category="smartphones">
+                <div class="relative h-44 bg-gray-50 flex items-center justify-center p-2">
+                    <span class="absolute top-2 left-2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded">OFERTA</span>
+                    <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=80" alt="Fone Bluetooth" class="h-full object-contain">
+                </div>
+                <div class="p-4 flex-1 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Shopee</span>
+                        <h3 class="font-bold text-gray-800 text-sm mt-1 line-clamp-2">Fone de Ouvido Sem Fio Bluetooth TWS HD</h3>
                         <div class="mt-2 flex items-baseline gap-2">
-                            <span class="text-xl font-extrabold text-orange-600">R$ 39,90</span>
+                            <span class="text-lg font-bold text-orange-600">R$ 39,90</span>
                             <span class="text-xs text-gray-400 line-through">R$ 89,90</span>
                         </div>
                     </div>
-                </div>
-                <div class="p-4 pt-0">
-                    <a href="https://shopee.com.br" target="_blank" 
-                        class="w-full block text-center bg-orange-500 hover:bg-orange-600 text-white font-bold py-2.5 px-4 rounded-lg transition">
-                        Ir para a Promoção <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i>
-                    </a>
+                    <div class="mt-4 pt-3 border-t">
+                        <a href="https://shopee.com.br" target="_blank" class="block w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-2 rounded-lg text-center transition">Ir para Promoção <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+                    </div>
                 </div>
             </div>
 
-            <!-- CARD 3: Cupom Mercado Livre -->
-            <div class="deal-card bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition flex flex-col justify-between border border-gray-100">
-                <div>
-                    <div class="relative bg-gray-50 p-4 text-center">
-                        <span class="absolute top-2 left-2 bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded">CUPOM</span>
-                        <img src="https://via.placeholder.com/150x100?text=Mercado+Livre" alt="Mercado Livre" class="h-20 mx-auto object-contain">
-                    </div>
-                    <div class="p-4">
-                        <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Mercado Livre</span>
-                        <h3 class="font-bold text-gray-800 text-lg line-clamp-2 mt-1">10% OFF em Moda e Calçados</h3>
-                        <p class="text-xs text-gray-500 mt-2"><i class="fa-regular fa-clock"></i> Cupons limitados</p>
-                    </div>
+            <!-- CARD 3: MERCADO LIVRE (MODA) -->
+            <div class="deal-card bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden border flex flex-col" data-category="moda">
+                <div class="relative h-44 bg-gray-50 flex items-center justify-center p-2">
+                    <span class="absolute top-2 left-2 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded">CUPOM</span>
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=80" alt="Tênis Vermelho" class="h-full object-contain">
                 </div>
-                <div class="p-4 pt-0">
-                    <button onclick="copyAndRedirect('MELI10', 'https://www.mercadolivre.com.br')" 
-                        class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-lg flex justify-between items-center transition">
-                        <span>Pegar Cupom</span>
-                        <span class="bg-emerald-800 text-xs px-2 py-1 rounded border border-emerald-400 tracking-wider">MELI10</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- CARD 4: Promoção Magalu -->
-            <div class="deal-card bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition flex flex-col justify-between border border-gray-100">
-                <div>
-                    <div class="relative bg-gray-50 p-4 text-center">
-                        <span class="absolute top-2 left-2 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded">OFERTA</span>
-                        <img src="https://via.placeholder.com/150x100?text=Magalu" alt="Magalu" class="h-20 mx-auto object-contain">
-                    </div>
-                    <div class="p-4">
-                        <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Magazine Luiza</span>
-                        <h3 class="font-bold text-gray-800 text-lg line-clamp-2 mt-1">Smart TV 50" 4K UHD Wi-Fi</h3>
+                <div class="p-4 flex-1 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Mercado Livre</span>
+                        <h3 class="font-bold text-gray-800 text-sm mt-1 line-clamp-2">Tênis Esportivo Casual + 15% OFF no Cupom</h3>
                         <div class="mt-2 flex items-baseline gap-2">
-                            <span class="text-xl font-extrabold text-blue-600">R$ 1.899,00</span>
-                            <span class="text-xs text-gray-400 line-through">R$ 2.499,00</span>
+                            <span class="text-lg font-bold text-emerald-600">R$ 149,90</span>
+                            <span class="text-xs text-gray-400 line-through">R$ 210,00</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="bg-dashed border border-emerald-500 text-emerald-700 font-mono text-xs font-bold px-2 py-1 rounded bg-emerald-50 w-full text-center">MELI15</span>
+                            <a href="https://www.mercadolivre.com.br" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg text-center whitespace-nowrap transition">Pegar</a>
                         </div>
                     </div>
                 </div>
-                <div class="p-4 pt-0">
-                    <a href="https://www.magazineluiza.com.br" target="_blank" 
-                        class="w-full block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-lg transition">
-                        Ir para a Promoção <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i>
-                    </a>
+            </div>
+
+            <!-- CARD 4: MAGALU (CASA E COZINHA) -->
+            <div class="deal-card bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden border flex flex-col" data-category="casa">
+                <div class="relative h-44 bg-gray-50 flex items-center justify-center p-2">
+                    <span class="absolute top-2 left-2 bg-blue-500 text-white text-[10px] font-bold px-2 py-0.5 rounded">OFERTA</span>
+                    <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=500&auto=format&fit=crop&q=80" alt="Cafeteira" class="h-full object-contain">
+                </div>
+                <div class="p-4 flex-1 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Magazine Luiza</span>
+                        <h3 class="font-bold text-gray-800 text-sm mt-1 line-clamp-2">Cafeteira Elétrica Programável Inox 1.5L</h3>
+                        <div class="mt-2 flex items-baseline gap-2">
+                            <span class="text-lg font-bold text-blue-600">R$ 189,00</span>
+                            <span class="text-xs text-gray-400 line-through">R$ 279,00</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t">
+                        <a href="https://www.magazineluiza.com.br" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 rounded-lg text-center transition">Ir para Promoção <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 5: SMARTPHONE (SMARTPHONES) -->
+            <div class="deal-card bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden border flex flex-col" data-category="smartphones">
+                <div class="relative h-44 bg-gray-50 flex items-center justify-center p-2">
+                    <span class="absolute top-2 left-2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded">OFERTA</span>
+                    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&auto=format&fit=crop&q=80" alt="Smartphone" class="h-full object-contain">
+                </div>
+                <div class="p-4 flex-1 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Shopee</span>
+                        <h3 class="font-bold text-gray-800 text-sm mt-1 line-clamp-2">Smartphone Android 128GB Tela 6.5" 5G</h3>
+                        <div class="mt-2 flex items-baseline gap-2">
+                            <span class="text-lg font-bold text-orange-600">R$ 899,00</span>
+                            <span class="text-xs text-gray-400 line-through">R$ 1.299,00</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t">
+                        <a href="https://shopee.com.br" target="_blank" class="block w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-2 rounded-lg text-center transition">Ir para Promoção <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+                    </div>
                 </div>
             </div>
 
         </div>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="bg-gray-900 text-gray-400 text-center py-6 text-sm border-t border-gray-800">
+    <!-- RODAPÉ -->
+    <footer class="bg-slate-900 text-gray-400 text-center py-6 border-t border-slate-800 text-xs">
         <p>&copy; 2026 RadarOfertas. Todos os direitos reservados. Links de afiliados podem gerar comissão.</p>
     </footer>
 
-    <!-- JAVASCRIPT DE INTERATIVIDADE -->
+    <!-- JAVASCRIPT DE FILTROS E BUSCA -->
     <script>
-        // Função para copiar cupom e redirecionar
-        function copyAndRedirect(code, url) {
-            navigator.clipboard.writeText(code).then(() => {
-                alert(`Cupom "${code}" copiado com sucesso!\nVocê será redirecionado para a loja.`);
-                window.open(url, '_blank');
-            }).catch(err => {
-                window.open(url, '_blank');
+        // Função para filtrar por Categoria
+        function filterCategory(category, buttonElement) {
+            const cards = document.querySelectorAll('.deal-card');
+            const buttons = document.querySelectorAll('.category-btn');
+
+            // Atualiza cor do botão ativo
+            buttons.forEach(btn => btn.classList.remove('active-tab'));
+            buttonElement.classList.add('active-tab');
+
+            // Exibe ou esconde os cards
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
             });
         }
 
-        // Função de filtro da barra de pesquisa
-        function filterDeals() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.getElementsByClassName('deal-card');
+        // Função para Busca por Texto
+        function filterProducts() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.deal-card');
 
-            for (let i = 0; i < cards.length; i++) {
-                let cardText = cards[i].innerText.toLowerCase();
-                if (cardText.includes(input)) {
-                    cards[i].style.display = "flex";
+            cards.forEach(card => {
+                const title = card.querySelector('h3').innerText.toLowerCase();
+                const store = card.querySelector('span').innerText.toLowerCase();
+                
+                if (title.includes(input) || store.includes(input)) {
+                    card.style.display = 'flex';
                 } else {
-                    cards[i].style.display = "none";
+                    card.style.display = 'none';
                 }
-            }
+            });
         }
     </script>
 </body>
