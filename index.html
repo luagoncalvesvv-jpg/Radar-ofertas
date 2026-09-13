@@ -5,89 +5,179 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Radar de Ofertas & Cupons</title>
   <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; color: #333; }
-    header { text-align: center; margin-bottom: 30px; }
-    h1 { color: #131921; margin-bottom: 5px; }
-    p.subtitle { color: #555; font-size: 14px; }
-    .nav-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
-    .nav-tabs a { background: #ff9900; color: #131921; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    .nav-tabs a:hover { background: #e88b00; }
+    :root {
+      --primary: #ff9900;
+      --primary-dark: #e88b00;
+      --dark: #131921;
+      --light-bg: #f4f6f8;
+      --card-bg: #ffffff;
+      --text-main: #232f3e;
+      --text-muted: #565959;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--light-bg); color: var(--text-main); line-height: 1.5; padding-bottom: 40px; }
+    
+    header { background: var(--dark); color: #fff; text-align: center; padding: 30px 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    header h1 { font-size: 24px; margin-bottom: 5px; color: #ff9900; }
+    header p { color: #ccc; font-size: 13px; }
+
+    .nav-tabs { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+    .nav-tabs a { background: var(--primary); color: var(--dark); padding: 8px 18px; text-decoration: none; border-radius: 20px; font-weight: bold; font-size: 14px; transition: background 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+    .nav-tabs a:hover { background: var(--primary-dark); }
+
+    main { max-width: 1200px; margin: 30px auto; padding: 0 15px; }
+    
     section { margin-bottom: 40px; }
-    h2 { border-bottom: 2px solid #ff9900; padding-bottom: 8px; color: #131921; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-    .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
-    .card h3 { font-size: 16px; margin-top: 0; color: #333; }
-    .btn { display: inline-block; padding: 12px 15px; background: #ff9900; color: #131921; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 15px; transition: background 0.2s; }
-    .btn:hover { background: #e88b00; }
-    .coupon-card { border: 2px dashed #ff9900; background: #fffdf5; }
-    .coupon-code { background: #eee; padding: 6px 12px; font-family: monospace; font-size: 18px; font-weight: bold; border-radius: 4px; display: inline-block; margin: 10px 0; color: #c45500; }
-    footer { text-align: center; margin-top: 50px; font-size: 12px; color: #777; }
+    section h2 { font-size: 20px; color: var(--dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary); padding-bottom: 6px; display: inline-block; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+    
+    .card { background: var(--card-bg); border-radius: 12px; padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid #e2e8f0; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+
+    .card-img-container { width: 100%; height: 160px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; background: #fff; border-radius: 8px; overflow: hidden; }
+    .card img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+    .card h3 { font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 40px; }
+
+    .rating { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+    .stars { color: #ffa41c; letter-spacing: -1px; }
+
+    .price { font-size: 18px; font-weight: 700; color: #b12704; margin-bottom: 12px; }
+
+    .btn { display: block; width: 100%; text-align: center; padding: 10px; background: var(--primary); color: var(--dark); text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 14px; transition: background 0.2s; box-shadow: 0 2px 4px rgba(255,153,0,0.3); }
+    .btn:hover { background: var(--primary-dark); }
+
+    .coupon-card { border: 2px dashed var(--primary); background: #fffdf5; text-align: center; }
+    .coupon-code { background: #fee; color: #c45500; padding: 8px 15px; font-family: monospace; font-size: 18px; font-weight: bold; border-radius: 6px; display: inline-block; margin: 10px 0; border: 1px dashed #f5c6cb; }
+
+    footer { text-align: center; margin-top: 50px; font-size: 12px; color: var(--text-muted); border-top: 1px solid #e2e8f0; padding-top: 20px; }
   </style>
 </head>
 <body>
 
   <header>
     <h1>Radar de Ofertas & Cupons</h1>
-    <p class="subtitle">As melhores promoções e cupons da internet em um só lugar!</p>
+    <p>As melhores promoções e achadinhos da Amazon em um só lugar!</p>
     <div class="nav-tabs">
       <a href="#produtos">📦 Produtos</a>
       <a href="#cupons">🎟️ Cupons</a>
     </div>
   </header>
 
-  <!-- SEÇÃO DE PRODUTOS -->
-  <section id="produtos">
-    <h2>Produtos em Destaque</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Achadinho Amazon 1</h3>
-        <a href="https://amzn.to/4h0hJoZ" class="btn" target="_blank">Ver na Amazon</a>
-      </div>
-      
-      <div class="card">
-        <h3>Achadinho Amazon 2</h3>
-        <a href="https://amzn.to/4gOVAd3" class="btn" target="_blank">Ver na Amazon</a>
-      </div>
+  <main>
+    <!-- SEÇÃO DE PRODUTOS -->
+    <section id="produtos">
+      <h2>Produtos em Destaque</h2>
+      <div class="grid">
+        
+        <!-- Produto 1 -->
+        <div class="card">
+          <div class="card-img-container">
+            <img src="https://m.media-amazon.com/images/I/41K3W1o6V9L._AC_SL1000_.jpg" alt="Protetor Solar Neutrogena">
+          </div>
+          <div>
+            <h3>Protetor Solar Neutrogena Sun Fresh FPS 50</h3>
+            <div class="rating"><span class="stars">★★★★★</span> 4.7 (104)</div>
+            <div class="price">R$ 48,29</div>
+          </div>
+          <a href="https://amzn.to/4h0hJoZ" class="btn" target="_blank">Ver na Amazon</a>
+        </div>
 
-      <div class="card">
-        <h3>Achadinho Amazon 3</h3>
-        <a href="https://amzn.to/4gZgTY5" class="btn" target="_blank">Ver na Amazon</a>
-      </div>
+        <!-- Produto 2 -->
+        <div class="card">
+          <div class="card-img-container">
+            <img src="https://m.media-amazon.com/images/I/81x5yL2hV6L._AC_SL1500_.jpg" alt="UNO Liars">
+          </div>
+          <div>
+            <h3>Jogo de Cartas UNO Liars</h3>
+            <div class="rating"><span class="stars">★★★★★</span> 4.6 (473)</div>
+            <div class="price">R$ 34,99</div>
+          </div>
+          <a href="https://amzn.to/4gOVAd3" class="btn" target="_blank">Ver na Amazon</a>
+        </div>
 
-      <div class="card">
-        <h3>Achadinho Amazon 4</h3>
-        <a href="https://amzn.to/4xU7c4E" class="btn" target="_blank">Ver na Amazon</a>
-      </div>
+        <!-- Produto 3 -->
+        <div class="card">
+          <div class="card-img-container">
+            <img src="https://m.media-amazon.com/images/I/61v83h0x51L._AC_SL1500_.jpg" alt="Galaxy A07">
+          </div>
+          <div>
+            <h3>Celular Samsung Galaxy A07 256GB</h3>
+            <div class="rating"><span class="stars">★★★★★</span> 4.8 (1.193)</div>
+            <div class="price">R$ 943,33</div>
+          </div>
+          <a href="https://amzn.to/4gZgTY5" class="btn" target="_blank">Ver na Amazon</a>
+        </div>
 
-      <div class="card">
-        <h3>Achadinho Amazon 5</h3>
-        <a href="https://amzn.to/4h2en3v" class="btn" target="_blank">Ver na Amazon</a>
-      </div>
+        <!-- Produto 4 -->
+        <div class="card">
+          <div class="card-img-container">
+            <img src="https://m.media-amazon.com/images/I/714RqwdpYYL._AC_SL1000_.jpg" alt="Echo Dot">
+          </div>
+          <div>
+            <h3>Echo Dot (Smart Speaker com Alexa)</h3>
+            <div class="rating"><span class="stars">★★★★★</span> 4.8 (93.734)</div>
+            <div class="price">R$ 429,00</div>
+          </div>
+          <a href="https://amzn.to/4xU7c4E" class="btn" target="_blank">Ver na Amazon</a>
+        </div>
 
-      <div class="card">
-        <h3>Achadinho Amazon 6</h3>
-        <a href="https://amzn.to/4iVijFG" class="btn" target="_blank">Ver na Amazon</a>
-      </div>
+        <!-- Produto 5 -->
+        <div class="card">
+          <div class="card-img-container">
+            <img src="https://m.media-amazon.com/images/I/81pYVv4M81L._AC_SL1500_.jpg" alt="UNO No Mercy">
+          </div>
+          <div>
+            <h3>Jogo de Cartas UNO No Mercy</h3>
+            <div class="rating"><span class="stars">★★★★★</span> 4.8 (21.804)</div>
+            <div class="price">R$ 48,99</div>
+          </div>
+          <a href="https://amzn.to/4h2en3v" class="btn" target="_blank">Ver na Amazon</a>
+        </div>
 
-      <div class="card">
-        <h3>Achadinho Amazon 7</h3>
-        <a href="https://amzn.to/4r5RUqF" class="btn" target="_blank">Ver na Amazon</a>
-      </div>
-    </div>
-  </section>
+        <!-- Produto 6 -->
+        <div class="card">
+          <div class="card-img-container">
+            <img src="https://m.media-amazon.com/images/I/61v0y88m2CL._AC_SL1000_.jpg" alt="Echo Show 5">
+          </div>
+          <div>
+            <h3>Echo Show 5 (Geração mais recente)</h3>
+            <div class="rating"><span class="stars">★★★★★</span> 4.3 (11.457)</div>
+            <div class="price">R$ 849,00</div>
+          </div>
+          <a href="https://amzn.to/4iVijFG" class="btn" target="_blank">Ver na Amazon</a>
+        </div>
 
-  <!-- SEÇÃO DE CUPONS -->
-  <section id="cupons">
-    <h2>Cupons de Desconto</h2>
-    <div class="grid">
-      <div class="card coupon-card">
-        <h3>Cupom Especial</h3>
-        <p>Copie o código e aproveite:</p>
-        <div class="coupon-code">DESCONTO10</div>
-        <a href="https://www.amazon.com.br" class="btn" target="_blank" style="background: #febd69;">Resgatar na Amazon</a>
+        <!-- Produto 7 -->
+        <div class="card">
+          <div class="card-img-container">
+            <img src="https://m.media-amazon.com/images/I/71r31z8o7pL._AC_SL1500_.jpg" alt="Soundcore Boom 2">
+          </div>
+          <div>
+            <h3>Caixa de Som Soundcore Boom 2 Anker</h3>
+            <div class="rating"><span class="stars">★★★★★</span> 4.7 (8.761)</div>
+            <div class="price">R$ 808,99</div>
+          </div>
+          <a href="https://amzn.to/4r5RUqF" class="btn" target="_blank">Ver na Amazon</a>
+        </div>
+
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- SEÇÃO DE CUPONS -->
+    <section id="cupons">
+      <h2>Cupons de Desconto</h2>
+      <div class="grid">
+        <div class="card coupon-card">
+          <h3>Cupom Especial Amazon</h3>
+          <p>Copie o código e aplique no carrinho:</p>
+          <div class="coupon-code">AMAZON10</div>
+          <a href="https://www.amazon.com.br" class="btn" target="_blank">Resgatar na Amazon</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <footer>
     <p>&copy; 2026 Radar de Ofertas. Todos os direitos reservados.</p>
