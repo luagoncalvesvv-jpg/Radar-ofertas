@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,17 +32,17 @@
     
     section { margin-bottom: 40px; }
     section h2 { font-size: 20px; color: var(--dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary); padding-bottom: 6px; display: inline-block; }
-    section#shopee-vitrine h2 { border-color: var(--shopee); }
+    section#shopee-vitrine h2, section#shopee-produtos h2 { border-color: var(--shopee); }
 
     /* DESTAQUE DA VITRINE SHOPEE */
     .shopee-banner {
-      background: linear-gradient(135deg, #fff5f2 0%
-      , #ffebe6 100%);
+      background: linear-gradient(135deg, #fff5f2 0%, #ffebe6 100%);
       border: 2px dashed var(--shopee);
       border-radius: 16px;
       padding: 30px 20px;
       text-align: center;
       box-shadow: 0 4px 15px rgba(238,77,45,0.1);
+      margin-bottom: 30px;
     }
     .shopee-banner h3 { font-size: 22px; color: var(--shopee); margin-bottom: 10px; }
     .shopee-banner p { color: #555; font-size: 15px; margin-bottom: 20px; max-width: 600px; margin-left: auto; margin-right: auto; }
@@ -73,10 +73,12 @@
     .rating { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
     .stars { color: #ffa41c; letter-spacing: -1px; }
 
-    .price { font-size: 18px; font-weight: 700; color: #b12704; margin-bottom: 12px; }
+    .price { font-size: 16px; font-weight: 700; color: var(--shopee); margin-bottom: 12px; }
 
     .btn { display: block; width: 100%; text-align: center; padding: 10px; background: var(--primary); color: var(--dark); text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 14px; transition: background 0.2s; box-shadow: 0 2px 4px rgba(255,153,0,0.3); }
     .btn:hover { background: var(--primary-dark); }
+    .btn.shopee-card-btn { background: var(--shopee); color: #fff; box-shadow: 0 2px 4px rgba(238,77,45,0.3); }
+    .btn.shopee-card-btn:hover { background: var(--shopee-dark); }
 
     .coupon-card { border: 2px dashed var(--primary); background: #fffdf5; text-align: center; }
     .coupon-code { background: #fee; color: #c45500; padding: 8px 15px; font-family: monospace; font-size: 18px; font-weight: bold; border-radius: 6px; display: inline-block; margin: 10px 0; border: 1px dashed #f5c6cb; }
@@ -90,26 +92,99 @@
     <h1>Radar de Ofertas & Cupons</h1>
     <p>As melhores promoções, achadinhos e cupons em um só lugar!</p>
     <div class="nav-tabs">
-      <a href="#shopee-vitrine">🛍️ Vitrine Shopee</a>
+      <a href="#shopee-vitrine" class="shopee-btn-nav">🛍️ Vitrine Shopee</a>
       <a href="#produtos">📦 Produtos Amazon</a>
       <a href="#cupons">🎟️ Cupons</a>
     </div>
   </header>
 
   <main>
-    <!-- SEÇÃO DA VITRINE SHOPEE (Atualiza sozinha) -->
+    <!-- SEÇÃO DA VITRINE SHOPEE -->
     <section id="shopee-vitrine">
       <h2>Vitrine Shopee</h2>
       <div class="shopee-banner">
         <h3>🛒 Todos os Achadinhos da Shopee em Tempo Real!</h3>
-        <p>Acesse nossa vitrine oficial na Shopee repleta de ofertas selecionadas. Os produtos são atualizados automaticamente lá para você economizar sempre!</p>
-        <a href="https://collshp.com/lugonalves851685?view=storefront" class="btn-shopee" target="_blank">Acessar Vitrine na Shopee</a>
+        <p>Acesse nossa vitrine oficial na Shopee repleta de ofertas selecionadas. Os produtos são atualizados automaticamente lá para poupar tempo!</p>
+        <a href="https://collshp.com/lugonalves851685?view=storefront" class="btn-shopee" target="_blank">Acessar Vitrine Completa</a>
       </div>
     </section>
 
-    <!-- SEÇÃO DE PRODUTOS -->
+    <!-- SEÇÃO DE ACHADINHOS DA SHOPEE -->
+    <section id="shopee-produtos">
+      <h2>Achadinhos Destaque Shopee</h2>
+      <div class="grid">
+        
+        <!-- Produto Shopee 1 -->
+        <div class="card">
+          <div class="card-img-container">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60" alt="Achadinho Shopee">
+          </div>
+          <div>
+            <h3>Achadinho Exclusivo Shopee</h3>
+            <div class="rating"><span class="stars">★★★★★</span> Ref: ALU-YMB-SRT</div>
+            <div class="price">Ver Oferta na Shopee</div>
+          </div>
+          <a href="https://collshp.com/lugonalves851685?view=storefront" class="btn shopee-card-btn" target="_blank">Ver na Shopee</a>
+        </div>
+
+        <!-- Produto Shopee 2 -->
+        <div class="card">
+          <div class="card-img-container">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60" alt="Achadinho Shopee">
+          </div>
+          <div>
+            <h3>Achadinho Exclusivo Shopee</h3>
+            <div class="rating"><span class="stars">★★★★★</span> Ref: BWZ-ZCB-ZNX</div>
+            <div class="price">Ver Oferta na Shopee</div>
+          </div>
+          <a href="https://collshp.com/lugonalves851685?view=storefront" class="btn shopee-card-btn" target="_blank">Ver na Shopee</a>
+        </div>
+
+        <!-- Produto Shopee 3 -->
+        <div class="card">
+          <div class="card-img-container">
+            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500&auto=format&fit=crop&q=60" alt="Achadinho Shopee">
+          </div>
+          <div>
+            <h3>Achadinho Exclusivo Shopee</h3>
+            <div class="rating"><span class="stars">★★★★★</span> Ref: CJS-PBC-GRA</div>
+            <div class="price">Ver Oferta na Shopee</div>
+          </div>
+          <a href="https://collshp.com/lugonalves851685?view=storefront" class="btn shopee-card-btn" target="_blank">Ver na Shopee</a>
+        </div>
+
+        <!-- Produto Shopee 4 -->
+        <div class="card">
+          <div class="card-img-container">
+            <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&auto=format&fit=crop&q=60" alt="Achadinho Shopee">
+          </div>
+          <div>
+            <h3>Achadinho Exclusivo Shopee</h3>
+            <div class="rating"><span class="stars">★★★★★</span> Ref: BUD-WBK-KFN</div>
+            <div class="price">Ver Oferta na Shopee</div>
+          </div>
+          <a href="https://collshp.com/lugonalves851685?view=storefront" class="btn shopee-card-btn" target="_blank">Ver na Shopee</a>
+        </div>
+
+        <!-- Produto Shopee 5 -->
+        <div class="card">
+          <div class="card-img-container">
+            <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500&auto=format&fit=crop&q=60" alt="Achadinho Shopee">
+          </div>
+          <div>
+            <h3>Achadinho Exclusivo Shopee</h3>
+            <div class="rating"><span class="stars">★★★★★</span> Ref: ATW-ETZ-QNM</div>
+            <div class="price">Ver Oferta na Shopee</div>
+          </div>
+          <a href="https://collshp.com/lugonalves851685?view=storefront" class="btn shopee-card-btn" target="_blank">Ver na Shopee</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SEÇÃO DE PRODUTOS AMAZON -->
     <section id="produtos">
-      <h2>Produtos em Destaque</h2>
+      <h2>Produtos em Destaque (Amazon)</h2>
       <div class="grid">
         
         <!-- Produto 1 -->
