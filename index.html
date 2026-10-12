@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="As melhores promoções, achadinhos e cupons da Amazon e da Shopee em um só lugar.">
   <title>Radar de Ofertas & Cupons</title>
   <style>
     :root {
@@ -18,19 +19,21 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--light-bg); color: var(--text-main); line-height: 1.5; padding-bottom: 40px; }
-    
+    a:focus-visible, button:focus-visible { outline: 3px solid #1a73e8; outline-offset: 2px; }
+    [hidden] { display: none !important; }
+
     header { background: var(--dark); color: #fff; text-align: center; padding: 30px 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
     header h1 { font-size: 24px; margin-bottom: 5px; color: #ff9900; }
     header p { color: #ccc; font-size: 13px; }
 
     .nav-tabs { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
-    .nav-tabs a { background: var(--primary); color: var(--dark); padding: 8px 18px; text-decoration: none; border-radius: 20px; font-weight: bold; font-size: 14px; transition: background 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+    .nav-tabs a { background: var(--primary); color: var(--dark); padding: 8px 18px; text-decoration: none; border-radius: 20px; font-weight: bold; font-size: 14px; transition: opacity 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
     .nav-tabs a.shopee-btn-nav { background: var(--shopee); color: #fff; }
     .nav-tabs a:hover { opacity: 0.9; }
 
     main { max-width: 1200px; margin: 30px auto; padding: 0 15px; }
-    
-    section { margin-bottom: 40px; }
+
+    section { margin-bottom: 40px; scroll-margin-top: 16px; }
     section h2 { font-size: 20px; color: var(--dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary); padding-bottom: 6px; display: inline-block; }
     section#shopee-vitrine h2, section#shopee-produtos h2 { border-color: var(--shopee); }
 
@@ -61,29 +64,45 @@
     .btn-shopee:hover { background: var(--shopee-dark); transform: translateY(-2px); }
 
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-    
+
     .card { background: var(--card-bg); border-radius: 12px; padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid #e2e8f0; }
     .card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
 
     .card-img-container { width: 100%; height: 160px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; background: #fff; border-radius: 8px; overflow: hidden; }
     .card img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 48px; background: #f1f3f5; }
 
-    .card h3 { font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 40px; }
+    .card h3 { font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 40px; }
 
     .rating { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
     .stars { color: #ffa41c; letter-spacing: -1px; }
 
     .price { font-size: 16px; font-weight: 700; color: var(--shopee); margin-bottom: 12px; }
 
-    .btn { display: block; width: 100%; text-align: center; padding: 10px; background: var(--primary); color: var(--dark); text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 14px; transition: background 0.2s; box-shadow: 0 2px 4px rgba(255,153,0,0.3); }
+    .btn { display: block; width: 100%; text-align: center; padding: 10px; background: var(--primary); color: var(--dark); text-decoration: none; border: 0; cursor: pointer; font-family: inherit; border-radius: 8px; font-weight: bold; font-size: 14px; transition: background 0.2s; box-shadow: 0 2px 4px rgba(255,153,0,0.3); }
     .btn:hover { background: var(--primary-dark); }
     .btn.shopee-card-btn { background: var(--shopee); color: #fff; box-shadow: 0 2px 4px rgba(238,77,45,0.3); }
     .btn.shopee-card-btn:hover { background: var(--shopee-dark); }
+    .btn.btn-copy { background: #fff; color: var(--dark); border: 2px solid var(--primary); box-shadow: none; margin-bottom: 8px; }
+    .btn.btn-copy:hover { background: #fff5e0; }
 
     .coupon-card { border: 2px dashed var(--primary); background: #fffdf5; text-align: center; }
-    .coupon-code { background: #fee; color: #c45500; padding: 8px 15px; font-family: monospace; font-size: 18px; font-weight: bold; border-radius: 6px; display: inline-block; margin: 10px 0; border: 1px dashed #f5c6cb; }
+    .coupon-card.shopee { border-color: var(--shopee); background: #fff8f6; }
+    .coupon-card p { font-size: 14px; color: var(--text-muted); }
+    .coupon-code { background: #fee; color: #c45500; padding: 8px 15px; font-family: monospace; font-size: 18px; font-weight: bold; border-radius: 6px; display: inline-block; margin: 10px 0; border: 1px dashed #f5c6cb; user-select: all; }
 
-    footer { text-align: center; margin-top: 50px; font-size: 12px; color: var(--text-muted); border-top: 1px solid #e2e8f0; padding-top: 20px; }
+    #status { text-align: center; color: var(--text-muted); font-size: 15px; padding: 20px; }
+    #status.erro { color: #b12704; background: #fff1ef; border: 1px solid #f5c6cb; border-radius: 8px; }
+
+    .updated { font-size: 12px; color: var(--text-muted); margin-top: -8px; margin-bottom: 16px; }
+
+    footer { max-width: 800px; margin: 50px auto 0; padding: 20px 15px 0; text-align: center; font-size: 12px; color: var(--text-muted); border-top: 1px solid #e2e8f0; }
+    footer p + p { margin-top: 6px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card, .btn, .btn-shopee, .nav-tabs a { transition: none; }
+      .card:hover, .btn-shopee:hover { transform: none; }
+    }
   </style>
 </head>
 <body>
@@ -91,213 +110,221 @@
   <header>
     <h1>Radar de Ofertas & Cupons</h1>
     <p>As melhores promoções, achadinhos e cupons em um só lugar!</p>
-    <div class="nav-tabs">
+    <nav class="nav-tabs" aria-label="Seções do site">
       <a href="#shopee-vitrine" class="shopee-btn-nav">🛍️ Vitrine Shopee</a>
-      <a href="#produtos">📦 Produtos Amazon</a>
-      <a href="#cupons">🎟️ Cupons</a>
-    </div>
+      <a href="#produtos" data-secao="produtos">📦 Produtos Amazon</a>
+      <a href="#cupons" data-secao="cupons">🎟️ Cupons</a>
+    </nav>
   </header>
 
   <main>
-    <!-- SEÇÃO DA VITRINE SHOPEE -->
+    <p id="status" role="status">Carregando ofertas…</p>
+
+    <!-- VITRINE SHOPEE -->
     <section id="shopee-vitrine">
       <h2>Vitrine Shopee</h2>
       <div class="shopee-banner">
         <h3>🛒 Todos os Achadinhos da Shopee em Tempo Real!</h3>
         <p>Acesse nossa vitrine oficial na Shopee repleta de ofertas selecionadas. Os produtos são atualizados automaticamente lá para poupar tempo!</p>
-        <a href="https://collshp.com/lugonalves851685?view=storefront" class="btn-shopee" target="_blank">Acessar Vitrine Completa</a>
+        <a href="https://collshp.com/lugonalves851685?view=storefront" class="btn-shopee" target="_blank" rel="noopener noreferrer sponsored">Acessar Vitrine Completa</a>
       </div>
     </section>
 
-    <!-- SEÇÃO DE ACHADINHOS DA SHOPEE -->
-    <section id="shopee-produtos">
+    <!-- ACHADINHOS SHOPEE (aparece só quando há produtos da Shopee no produtos.json) -->
+    <section id="shopee-produtos" hidden>
       <h2>Achadinhos Destaque Shopee</h2>
-      <div class="grid">
-        
-        <!-- Produto Shopee 1 -->
-        <div class="card">
-          <div class="card-img-container">
-            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60" alt="Achadinho Shopee">
-          </div>
-          <div>
-            <h3>Achadinho Exclusivo Shopee</h3>
-            <div class="rating"><span class="stars">★★★★★</span> Ref: ALU-YMB-SRT</div>
-            <div class="price">Ver Oferta na Shopee</div>
-          </div>
-          <a href="https://collshp.com/lugonalves851685?view=storefront" class="btn shopee-card-btn" target="_blank">Ver na Shopee</a>
-        </div>
-
-        <!-- Produto Shopee 2 -->
-        <div class="card">
-          <div class="card-img-container">
-            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60" alt="Achadinho Shopee">
-          </div>
-          <div>
-            <h3>Achadinho Exclusivo Shopee</h3>
-            <div class="rating"><span class="stars">★★★★★</span> Ref: BWZ-ZCB-ZNX</div>
-            <div class="price">Ver Oferta na Shopee</div>
-          </div>
-          <a href="https://collshp.com/lugonalves851685?view=storefront" class="btn shopee-card-btn" target="_blank">Ver na Shopee</a>
-        </div>
-
-        <!-- Produto Shopee 3 -->
-        <div class="card">
-          <div class="card-img-container">
-            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500&auto=format&fit=crop&q=60" alt="Achadinho Shopee">
-          </div>
-          <div>
-            <h3>Achadinho Exclusivo Shopee</h3>
-            <div class="rating"><span class="stars">★★★★★</span> Ref: CJS-PBC-GRA</div>
-            <div class="price">Ver Oferta na Shopee</div>
-          </div>
-          <a href="https://collshp.com/lugonalves851685?view=storefront" class="btn shopee-card-btn" target="_blank">Ver na Shopee</a>
-        </div>
-
-        <!-- Produto Shopee 4 -->
-        <div class="card">
-          <div class="card-img-container">
-            <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&auto=format&fit=crop&q=60" alt="Achadinho Shopee">
-          </div>
-          <div>
-            <h3>Achadinho Exclusivo Shopee</h3>
-            <div class="rating"><span class="stars">★★★★★</span> Ref: BUD-WBK-KFN</div>
-            <div class="price">Ver Oferta na Shopee</div>
-          </div>
-          <a href="https://collshp.com/lugonalves851685?view=storefront" class="btn shopee-card-btn" target="_blank">Ver na Shopee</a>
-        </div>
-
-        <!-- Produto Shopee 5 -->
-        <div class="card">
-          <div class="card-img-container">
-            <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500&auto=format&fit=crop&q=60" alt="Achadinho Shopee">
-          </div>
-          <div>
-            <h3>Achadinho Exclusivo Shopee</h3>
-            <div class="rating"><span class="stars">★★★★★</span> Ref: ATW-ETZ-QNM</div>
-            <div class="price">Ver Oferta na Shopee</div>
-          </div>
-          <a href="https://collshp.com/lugonalves851685?view=storefront" class="btn shopee-card-btn" target="_blank">Ver na Shopee</a>
-        </div>
-
-      </div>
+      <div class="grid" id="grid-shopee"></div>
     </section>
 
-    <!-- SEÇÃO DE PRODUTOS AMAZON -->
-    <section id="produtos">
+    <!-- PRODUTOS AMAZON -->
+    <section id="produtos" hidden>
       <h2>Produtos em Destaque (Amazon)</h2>
-      <div class="grid">
-        
-        <!-- Produto 1 -->
-        <div class="card">
-          <div class="card-img-container">
-            <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=500&auto=format&fit=crop&q=60" alt="Protetor Solar Neutrogena">
-          </div>
-          <div>
-            <h3>Protetor Solar Neutrogena Sun Fresh FPS 50</h3>
-            <div class="rating"><span class="stars">★★★★★</span> 4.7 (104)</div>
-            <div class="price">R$ 48,29</div>
-          </div>
-          <a href="https://amzn.to/4h0hJoZ" class="btn" target="_blank">Ver na Amazon</a>
-        </div>
-
-        <!-- Produto 2 -->
-        <div class="card">
-          <div class="card-img-container">
-            <img src="https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=500&auto=format&fit=crop&q=60" alt="UNO Liars">
-          </div>
-          <div>
-            <h3>Jogo de Cartas UNO Liars</h3>
-            <div class="rating"><span class="stars">★★★★★</span> 4.6 (473)</div>
-            <div class="price">R$ 34,99</div>
-          </div>
-          <a href="https://amzn.to/4gOVAd3" class="btn" target="_blank">Ver na Amazon</a>
-        </div>
-
-        <!-- Produto 3 -->
-        <div class="card">
-          <div class="card-img-container">
-            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&auto=format&fit=crop&q=60" alt="Galaxy A07">
-          </div>
-          <div>
-            <h3>Celular Samsung Galaxy A07 256GB</h3>
-            <div class="rating"><span class="stars">★★★★★</span> 4.8 (1.193)</div>
-            <div class="price">R$ 943,33</div>
-          </div>
-          <a href="https://amzn.to/4gZgTY5" class="btn" target="_blank">Ver na Amazon</a>
-        </div>
-
-        <!-- Produto 4 -->
-        <div class="card">
-          <div class="card-img-container">
-            <img src="https://images.unsplash.com/photo-1543512214-318c7553f230?w=500&auto=format&fit=crop&q=60" alt="Echo Dot">
-          </div>
-          <div>
-            <h3>Echo Dot (Smart Speaker com Alexa)</h3>
-            <div class="rating"><span class="stars">★★★★★</span> 4.8 (93.734)</div>
-            <div class="price">R$ 429,00</div>
-          </div>
-          <a href="https://amzn.to/4xU7c4E" class="btn" target="_blank">Ver na Amazon</a>
-        </div>
-
-        <!-- Produto 5 -->
-        <div class="card">
-          <div class="card-img-container">
-            <img src="https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=500&auto=format&fit=crop&q=60" alt="UNO No Mercy">
-          </div>
-          <div>
-            <h3>Jogo de Cartas UNO No Mercy</h3>
-            <div class="rating"><span class="stars">★★★★★</span> 4.8 (21.804)</div>
-            <div class="price">R$ 48,99</div>
-          </div>
-          <a href="https://amzn.to/4h2en3v" class="btn" target="_blank">Ver na Amazon</a>
-        </div>
-
-        <!-- Produto 6 -->
-        <div class="card">
-          <div class="card-img-container">
-            <img src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500&auto=format&fit=crop&q=60" alt="Echo Show 5">
-          </div>
-          <div>
-            <h3>Echo Show 5 (Geração mais recente)</h3>
-            <div class="rating"><span class="stars">★★★★★</span> 4.3 (11.457)</div>
-            <div class="price">R$ 849,00</div>
-          </div>
-          <a href="https://amzn.to/4iVijFG" class="btn" target="_blank">Ver na Amazon</a>
-        </div>
-
-        <!-- Produto 7 -->
-        <div class="card">
-          <div class="card-img-container">
-            <img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?w=500&auto=format&fit=crop&q=60" alt="Soundcore Boom 2">
-          </div>
-          <div>
-            <h3>Caixa de Som Soundcore Boom 2 Anker</h3>
-            <div class="rating"><span class="stars">★★★★★</span> 4.7 (8.761)</div>
-            <div class="price">R$ 808,99</div>
-          </div>
-          <a href="https://amzn.to/4r5RUqF" class="btn" target="_blank">Ver na Amazon</a>
-        </div>
-
-      </div>
+      <p class="updated" id="atualizado" hidden></p>
+      <div class="grid" id="grid-amazon"></div>
     </section>
 
-    <!-- SEÇÃO DE CUPONS -->
-    <section id="cupons">
+    <!-- CUPONS -->
+    <section id="cupons" hidden>
       <h2>Cupons de Desconto</h2>
-      <div class="grid">
-        <div class="card coupon-card">
-          <h3>Cupom Especial Amazon</h3>
-          <p>Copie o código e aplique no carrinho:</p>
-          <div class="coupon-code">AMAZON10</div>
-          <a href="https://www.amazon.com.br" class="btn" target="_blank">Resgatar na Amazon</a>
-        </div>
-      </div>
+      <div class="grid" id="grid-cupons"></div>
     </section>
   </main>
 
   <footer>
+    <p>Como Associado da Amazon, ganho com compras qualificadas. Também podemos receber comissão por compras feitas pelos links da Shopee, sem custo extra para você.</p>
+    <p>Preços, avaliações e disponibilidade podem mudar a qualquer momento. Confira o valor final na página da loja antes de comprar.</p>
     <p>&copy; 2026 Radar de Ofertas. Todos os direitos reservados.</p>
   </footer>
+
+  <script>
+    (function () {
+      var moeda = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+      var LOJAS = {
+        amazon:  { nome: 'Amazon', classeBotao: '' },
+        shopee:  { nome: 'Shopee', classeBotao: ' shopee-card-btn' }
+      };
+
+      function el(tag, classe, texto) {
+        var e = document.createElement(tag);
+        if (classe) e.className = classe;
+        if (texto !== undefined) e.textContent = texto;
+        return e;
+      }
+
+      // Só aceita links http(s); qualquer outra coisa é descartada.
+      function urlSegura(valor) {
+        try {
+          var u = new URL(valor);
+          return (u.protocol === 'https:' || u.protocol === 'http:') ? u.href : null;
+        } catch (e) { return null; }
+      }
+
+      function placeholder() {
+        var p = el('div', 'img-placeholder', '🛍️');
+        p.setAttribute('aria-hidden', 'true');
+        return p;
+      }
+
+      function estrelas(nota) {
+        var n = Math.max(0, Math.min(5, Math.round(nota)));
+        return '★'.repeat(n) + '☆'.repeat(5 - n);
+      }
+
+      function criarCard(p) {
+        var loja = LOJAS[p.loja] || LOJAS.amazon;
+        var link = urlSegura(p.link);
+        if (!p.titulo || !link) return null;
+
+        var card = el('div', 'card');
+
+        var caixa = el('div', 'card-img-container');
+        var imgUrl = urlSegura(p.imagem);
+        if (imgUrl) {
+          var img = document.createElement('img');
+          img.src = imgUrl;
+          img.alt = p.titulo;
+          img.loading = 'lazy';
+          img.referrerPolicy = 'no-referrer';
+          img.addEventListener('error', function () { caixa.replaceChildren(placeholder()); });
+          caixa.appendChild(img);
+        } else {
+          caixa.appendChild(placeholder());
+        }
+        card.appendChild(caixa);
+
+        var info = el('div');
+        info.appendChild(el('h3', '', p.titulo));
+
+        if (typeof p.nota === 'number') {
+          var rating = el('div', 'rating');
+          var st = el('span', 'stars', estrelas(p.nota));
+          st.setAttribute('aria-hidden', 'true');
+          rating.appendChild(st);
+          var txt = p.nota.toFixed(1).replace('.', ',');
+          if (typeof p.avaliacoes === 'number') txt += ' (' + p.avaliacoes.toLocaleString('pt-BR') + ')';
+          rating.appendChild(document.createTextNode(txt));
+          rating.setAttribute('aria-label', 'Nota ' + p.nota.toFixed(1).replace('.', ',') + ' de 5');
+          info.appendChild(rating);
+        }
+
+        info.appendChild(el('div', 'price', typeof p.preco === 'number' ? moeda.format(p.preco) : 'Ver oferta na ' + loja.nome));
+        card.appendChild(info);
+
+        var a = el('a', 'btn' + loja.classeBotao, 'Ver na ' + loja.nome);
+        a.href = link;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer sponsored';
+        card.appendChild(a);
+        return card;
+      }
+
+      function criarCupom(c) {
+        var loja = LOJAS[c.loja] || LOJAS.amazon;
+        var link = urlSegura(c.link);
+        if (!c.codigo) return null;
+
+        var card = el('div', 'card coupon-card' + (c.loja === 'shopee' ? ' shopee' : ''));
+        var corpo = el('div');
+        corpo.appendChild(el('h3', '', c.titulo || 'Cupom de desconto'));
+        corpo.appendChild(el('p', '', c.descricao || 'Copie o código e aplique no carrinho:'));
+        corpo.appendChild(el('div', 'coupon-code', c.codigo));
+        card.appendChild(corpo);
+
+        var acoes = el('div');
+        var copiar = el('button', 'btn btn-copy', 'Copiar código');
+        copiar.type = 'button';
+        copiar.addEventListener('click', function () {
+          var ok = function () {
+            copiar.textContent = 'Código copiado!';
+            setTimeout(function () { copiar.textContent = 'Copiar código'; }, 2000);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(c.codigo).then(ok, function () {});
+          }
+        });
+        acoes.appendChild(copiar);
+
+        if (link) {
+          var a = el('a', 'btn' + (c.loja === 'shopee' ? ' shopee-card-btn' : ''), 'Resgatar na ' + loja.nome);
+          a.href = link;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer sponsored';
+          acoes.appendChild(a);
+        }
+        card.appendChild(acoes);
+        return card;
+      }
+
+      function preencher(idGrade, idSecao, itens, fabrica) {
+        var grade = document.getElementById(idGrade);
+        var cards = itens.map(fabrica).filter(Boolean);
+        cards.forEach(function (c) { grade.appendChild(c); });
+        var secao = document.getElementById(idSecao);
+        secao.hidden = cards.length === 0;
+        // Esconde também o botão do menu quando a seção está vazia
+        var botao = document.querySelector('[data-secao="' + idSecao + '"]');
+        if (botao) botao.hidden = cards.length === 0;
+      }
+
+      function formatarData(iso) {
+        var d = new Date(iso);
+        return isNaN(d) ? null : d.toLocaleDateString('pt-BR');
+      }
+
+      var status = document.getElementById('status');
+
+      fetch('produtos.json', { cache: 'no-cache' })
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        })
+        .then(function (dados) {
+          var produtos = Array.isArray(dados.produtos) ? dados.produtos : [];
+          var cupons = Array.isArray(dados.cupons) ? dados.cupons : [];
+
+          preencher('grid-amazon', 'produtos',
+            produtos.filter(function (p) { return p.loja !== 'shopee'; }), criarCard);
+          preencher('grid-shopee', 'shopee-produtos',
+            produtos.filter(function (p) { return p.loja === 'shopee'; }), criarCard);
+          preencher('grid-cupons', 'cupons', cupons, criarCupom);
+
+          var data = dados.atualizado_em ? formatarData(dados.atualizado_em) : null;
+          if (data) {
+            var aviso = document.getElementById('atualizado');
+            aviso.textContent = 'Preços atualizados em ' + data;
+            aviso.hidden = false;
+          }
+          status.hidden = true;
+        })
+        .catch(function () {
+          status.className = 'erro';
+          status.textContent = 'Não foi possível carregar as ofertas agora. Se você abriu o arquivo direto no computador, publique o site (GitHub Pages) ou use um servidor local, porque o navegador bloqueia a leitura do produtos.json nesse caso.';
+        });
+    })();
+  </script>
+  <noscript>
+    <p style="text-align:center;padding:20px">Ative o JavaScript para ver as ofertas.</p>
+  </noscript>
 
 </body>
 </html>
